@@ -1,0 +1,183 @@
+<core:View controllerName="sap.ui.demo.myFiori.view.Detail" 
+xmlns="sap.m" 
+xmlns:textArea="sap.ui.commons" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core" >
+	<Page
+		title="{i18n>DetailTitle}"
+		showNavButton="{device>/isPhone}"
+		navButtonPress="handleNavButtonPress" >
+		<ObjectHeader
+			title="{CaseId}" >
+			<attributes>
+				<ObjectAttribute text="{StudentName}" />
+				<ObjectAttribute text="{CreatedByBp}" />
+				<ObjectAttribute text="{
+					path: 'CreatedAt',
+					formatter: 'sap.ui.demo.myFiori.util.Formatter.date'
+				}" />
+			</attributes>
+			<firstStatus>
+				<ObjectStatus
+					text="{
+						path: 'LifecycleStatus',
+						formatter: 'sap.ui.demo.myFiori.util.Formatter.statusText'
+					}"
+					state="{
+						path: 'LifecycleStatus',
+						formatter: 'sap.ui.demo.myFiori.util.Formatter.statusState'
+					}" />
+			</firstStatus>
+		</ObjectHeader>
+		<IconTabBar
+			expanded="{device>/isNoPhone}">
+			<items>
+				<IconTabFilter
+					icon="sap-icon://hint">
+					<form:SimpleForm
+						id="SupplierForm"
+						minWidth="1024" >
+						<core:Title text="Address" />
+						<Label text="Name"/> 
+						<Text text="{CompanyName}" /> 
+						<Label text="City"/> 
+						<Text text="{City}, {PostalCode}" /> 
+						<Label text="Street"/> 
+						<Text text="{Street}" />	
+						<Image align="right" class="sapUiSmallMargin" width="500px" height="300px" 
+       					src="{ parts: [ '{Street}', '{PostalCode}', '{City}', '{Country}' ], formatter: '.formatMapUrl' }" />
+					</form:SimpleForm>
+				</IconTabFilter>
+			</items>
+			<items>
+				<IconTabFilter
+					icon="sap-icon://appointment">
+					<Table
+						headerText="{i18n>LineItemTableHeader}"
+						items="{LineItems}" >
+							<columns>
+								<Column>
+									<header><Label text="Appointment" /></header>
+								</Column>
+								<Column
+									minScreenWidth="Tablet"
+									demandPopin="true"
+									hAlign="Center" >
+										<header><Label text="Date" /></header>
+								</Column>
+								<Column
+									minScreenWidth="Tablet"
+									demandPopin="true"
+									hAlign="Center" >
+										<header><Label text="Contact" /></header>
+								</Column>
+								<Column
+									hAlign="Right" >
+										<header><Label text="Duration" /></header>
+								</Column>
+							</columns>
+							<ColumnListItem
+								type="Navigation"
+								press="handleLineItemPress" >
+									<cells>
+										<ObjectIdentifier
+											title="{ProductId}" />
+												<Text
+													text="{
+														path: 'DeliveryDate',formatter:'sap.ui.demo.myFiori.util.Formatter.date'
+												}"/>
+												<Text
+													text="{ContactName}"/>
+										<ObjectNumber
+											number="{Duration}"
+											numberUnit="{DurationUnit}" />
+									</cells>
+							</ColumnListItem>
+					</Table>
+				</IconTabFilter>
+			</items>
+			<items>
+				<IconTabFilter
+					icon="sap-icon://learning-assistant">
+				</IconTabFilter>
+			</items>
+			<items>
+				<IconTabFilter
+					icon="sap-icon://notes">
+					<FeedInput
+						post="onPost"
+						icon="sap-icon://notes"
+						class="sapUiSmallMarginTopBottom" />
+						<List
+							showSeparators="Inner"
+							items="{Notes}" >
+							<FeedListItem
+								sender="{Author}"
+								icon="sap-icon://notes"
+								iconDensityAware="true"
+								info="{Type}"
+								timestamp="{CreatedAt}"
+								text="{Text}" />
+							</List>
+				</IconTabFilter>
+			</items>
+			<items>
+				<IconTabFilter
+					icon="sap-icon://attachment">
+					<Table
+						headerText="Attachments"
+						items="{Attachments}" >
+							<columns>
+								<Column>
+									<header><Label text="Title" /></header>
+								</Column>
+								<Column
+									minScreenWidth="Tablet"
+									demandPopin="true"
+									hAlign="Center" >
+										<header><Label text="Date" /></header>
+								</Column>
+								<Column
+									minScreenWidth="Tablet"
+									demandPopin="true"
+									hAlign="Center" >
+										<header><Label text="Size" /></header>
+								</Column>
+								<Column
+									hAlign="Right" >
+										<header><Label text="Type" /></header>
+								</Column>
+							</columns>
+							
+							<!--  Need to work on a toaster for "opening this file not a Navigation - DONE!
+							Added a new function to the Controller handleOpenAttach which with Toaster -->
+							<ColumnListItem
+								type="Active"
+								press="handleOpenAttach" >
+									<cells>
+										<ObjectIdentifier
+											title="{Title}" />
+												<Text
+													text="{
+														path: 'CreatedAt',formatter:'sap.ui.demo.myFiori.util.Formatter.date'
+												}"/>
+												<Text
+													text="{Size}"/>
+												<Text text="{Type}" />
+									</cells>
+							</ColumnListItem>
+					</Table>
+				</IconTabFilter>
+			</items>
+			</IconTabBar>
+		<footer>
+			<Bar>
+				<contentRight>
+					<Button
+						text="{i18n>ApproveButtonText}"
+						type="Accept"
+						icon="sap-icon://accept"
+						press="handleApprove" />
+				</contentRight>
+			</Bar>
+		</footer>	
+	</Page>
+</core:View>

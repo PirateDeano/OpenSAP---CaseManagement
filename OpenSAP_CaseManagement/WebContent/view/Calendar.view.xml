@@ -1,0 +1,45 @@
+<mvc:View
+	controllerName="sap.m.sample.PlanningCalendar.Page"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:unified="sap.ui.unified"
+	xmlns="sap.m">
+	<VBox class="sapUiSmallMargin">
+		<PlanningCalendar
+			id="PC1"
+			startDate="{path: '/startDate'}"
+			appointmentSelect="handleAppointmentSelect">
+			<toolbarContent>
+				<Title text="My Calendar" titleStyle="H4"/>
+			</toolbarContent>
+			<rows>
+				<PlanningCalendarRow
+					icon="sap-icon://customer"
+					title="Amy Ham-Rob"
+					text="Educational Psychologist"
+					appointments="{LineItems}"
+					intervalHeaders="{ProductId}">
+					<appointments>
+						<unified:CalendarAppointment
+							startDate="{DeliveryDate}"
+							endDate="{EndDate}"
+							icon="sap-icon://calendar"
+							title="{ProductID}"
+							text="{ProductName}"
+							type="{Type}"
+							tentative="{tentative}">
+						</unified:CalendarAppointment>
+					</appointments>
+					<intervalHeaders>
+						<unified:CalendarAppointment
+							startDate="{DeliveryDate}"
+							endDate="{EndDate}"
+							icon="{pic}"
+							title="{title}"
+							type="{type}">
+						</unified:CalendarAppointment>
+					</intervalHeaders>
+				</PlanningCalendarRow>
+			</rows>
+		</PlanningCalendar>
+	</VBox>
+</mvc:View>
